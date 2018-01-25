@@ -48,7 +48,7 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     Logger::outputDebugString( sOutput );
     
     // change label text based on child process
-    workingDirectory.setText(sOutput, dontSendNotification);
+    workingDirectory.setText("Current directory: " + sOutput, dontSendNotification);
     addAndMakeVisible(workingDirectory);
     
     
@@ -82,7 +82,7 @@ void SourceKontrolAudioProcessorEditor::resized()
     commitButton.setBounds(x, y + 75, w, h);
     pushButton.setBounds(x, y + 150, w, h);
     myHyperLinkButton.setBounds(x + 100, y, w + 90, h);
-    workingDirectory.setBounds(x + 150, y + 80, w + 100, h);
+    workingDirectory.setBounds(x + 150, y + 80, w + 120, h);
 }
 
 
@@ -90,9 +90,30 @@ void SourceKontrolAudioProcessorEditor::buttonClicked(Button* button)
 {
     if (button == &commitButton) {
         commitButton.setButtonText("Committed");
+        gitCommit.start("git commit -m \"making a commit\"");
+        String commitOutput = myProcess.readAllProcessOutput();
+        Logger::outputDebugString( commitOutput );
+        
+        // change label text based on child process
+        workingDirectory.setText("Committing: " + commitOutput, dontSendNotification);
+
     } else if (button == &pullButton) {
+        gitPull.start("git pull");
         pullButton.setButtonText("Pulled");
+        String pullOutput = myProcess.readAllProcessOutput();
+        Logger::outputDebugString( pullOutput );
+        
+        // change label text based on child process
+        workingDirectory.setText("Pulling: " + pullOutput, dontSendNotification);
+
     } else if (button == &pushButton) {
+        gitPush.start("git push");
         pushButton.setButtonText("Pushed");
+        
+        String pushOutput = myProcess.readAllProcessOutput();
+        Logger::outputDebugString( pushOutput );
+        
+        // change label text based on child process
+        workingDirectory.setText("Pushing: " + pushOutput, dontSendNotification);
     }
 }

@@ -42,6 +42,9 @@ private:
     HyperlinkButton myHyperLinkButton;
     
     ChildProcess myProcess;     // process to execute commands
+    ChildProcess gitPull;
+    ChildProcess gitCommit;
+    ChildProcess gitPush;
     
     Label workingDirectory;    // for getting/displaying current directory
     

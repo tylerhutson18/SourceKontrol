@@ -18,8 +18,6 @@
 SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKontrolAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
     
     // buttons
     commitButton.setButtonText("Commit");
@@ -43,7 +41,7 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     
     
     // gets current directory of work
-    myProcess.start( "pwd" );
+    myProcess.start("pwd");
     String sOutput = myProcess.readAllProcessOutput();
     Logger::outputDebugString( sOutput );
     
@@ -56,11 +54,11 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     customCommitMsg.setColour(Label::backgroundColourId, Colours::lightgrey);
     customCommitMsg.setText("Enter custom commit message.", dontSendNotification);
     customCommitMsg.addListener(this);
-    //commitMessage = customCommitMsg.getTextValue();
+    
     
     // set gui size
     //setSize (400, 300);
-    setSize(600, 450);
+    setSize(500, 400);
 }
 
 SourceKontrolAudioProcessorEditor::~SourceKontrolAudioProcessorEditor()
@@ -87,10 +85,9 @@ void SourceKontrolAudioProcessorEditor::resized()
     pullButton.setBounds(x, y, w, h);
     commitButton.setBounds(x, y + 75, w, h);
     pushButton.setBounds(x, y + 150, w, h);
-    //myHyperLinkButton.setBounds(x + 100, y, w + 90, h);
-    //statusMessage.setBounds(x + 100, y + 70, w + 300, h + 100);
+    myHyperLinkButton.setBounds(x + 120, y, w + 90, h);
     statusMessage.setBounds(x, y + 200, w + 300, h + 100);
-    customCommitMsg.setBounds(x + 120, y + 75, w + 80, h - 15);
+    customCommitMsg.setBounds(x + 120, y + 75, w + 100, h - 15);
 }
 
 
@@ -100,8 +97,6 @@ void SourceKontrolAudioProcessorEditor::buttonClicked(Button* button)
     // check if github repo
     // git rev-parse 2> /dev/null; [ $? == 0 ] && echo 1
     
-    // change this if you want a different commit message
-    // commitMessage = "SourceKontrol commit";
     commitMessage = customCommitMsg.getText();
     
     if (button == &commitButton) {
@@ -118,8 +113,6 @@ void SourceKontrolAudioProcessorEditor::buttonClicked(Button* button)
         statusMessage.setText("Committing: " + commitOutput, dontSendNotification);
         
         commitButton.setButtonText("Committed");
-        
-        // reset button text
         
         
 
@@ -154,7 +147,7 @@ void SourceKontrolAudioProcessorEditor::buttonClicked(Button* button)
 void SourceKontrolAudioProcessorEditor::labelTextChanged(Label* label)
 {
     if (label == &customCommitMsg) {
-        
+        // do something
     }
 }
 

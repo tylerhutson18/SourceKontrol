@@ -35,6 +35,7 @@ private:
     // access the processor object that created it.
     SourceKontrolAudioProcessor& processor;
 
+    
     // buttons
     TextButton commitButton;
     TextButton pullButton;

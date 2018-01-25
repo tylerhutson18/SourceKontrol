@@ -27,6 +27,7 @@ SourceKontrolAudioProcessor::SourceKontrolAudioProcessor()
 {
 }
 
+
 SourceKontrolAudioProcessor::~SourceKontrolAudioProcessor()
 {
 }

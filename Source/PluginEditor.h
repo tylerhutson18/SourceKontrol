@@ -38,9 +38,12 @@ private:
     TextButton pullButton;
     TextButton pushButton;
     
-    
     URL myURL;
     HyperlinkButton myHyperLinkButton;
+    
+    ChildProcess myProcess;     // process to execute commands
+    
+    Label workingDirectory;    // for getting/displaying current directory
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceKontrolAudioProcessorEditor)
 };

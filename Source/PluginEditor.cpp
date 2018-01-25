@@ -10,6 +10,8 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include <iostream>
+#include <stdlib.h>
 
 
 //==============================================================================
@@ -19,6 +21,7 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     
+    // buttons
     commitButton.setButtonText("Commit");
     addAndMakeVisible(commitButton);
     commitButton.addListener(this);
@@ -32,12 +35,25 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     pushButton.addListener(this);
     
     
-    
+    // hyperlink button
     myURL = URL("https://github.com/tylerhutson18/SourceKontrol");
     myHyperLinkButton.setURL(myURL);
     myHyperLinkButton.setButtonText("Repo");
     addAndMakeVisible(myHyperLinkButton);
     
+    // start child process to execute commands
+    // gets current directory of work
+    myProcess.start( "pwd" );
+    String sOutput = myProcess.readAllProcessOutput();
+    Logger::outputDebugString( sOutput );
+    
+    // change label text based on child process
+    workingDirectory.setText(sOutput, dontSendNotification);
+    addAndMakeVisible(workingDirectory);
+    
+    
+    
+    // set gui size
     setSize (400, 300);
 }
 
@@ -48,9 +64,9 @@ SourceKontrolAudioProcessorEditor::~SourceKontrolAudioProcessorEditor()
 //==============================================================================
 void SourceKontrolAudioProcessorEditor::paint (Graphics& g)
 {
-    g.fillAll (Colours::black);
+    g.fillAll (Colours::white);
 
-    g.setColour (Colours::white);
+    g.setColour (Colours::black);
     g.setFont (22.0f);
     g.drawFittedText ("SourceKontrol", getLocalBounds(), Justification::centredTop, 1);
 }
@@ -66,6 +82,7 @@ void SourceKontrolAudioProcessorEditor::resized()
     commitButton.setBounds(x, y + 75, w, h);
     pushButton.setBounds(x, y + 150, w, h);
     myHyperLinkButton.setBounds(x + 100, y, w + 90, h);
+    workingDirectory.setBounds(x + 150, y + 80, w + 100, h);
 }
 
 

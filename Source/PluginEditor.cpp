@@ -19,15 +19,23 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     
-    myButton.setButtonText("Commit");
-    addAndMakeVisible(myButton);
-    myButton.addListener(this);
+    commitButton.setButtonText("Commit");
+    addAndMakeVisible(commitButton);
+    commitButton.addListener(this);
+    
+    pullButton.setButtonText("Pull");
+    addAndMakeVisible(pullButton);
+    pullButton.addListener(this);
+    
+    pushButton.setButtonText("Push");
+    addAndMakeVisible(pushButton);
+    pushButton.addListener(this);
     
     
-    URL myURL = URL("https://www.github.com");
+    
+    myURL = URL("https://github.com/tylerhutson18/SourceKontrol");
     myHyperLinkButton.setURL(myURL);
-    myHyperLinkButton.setButtonText("Click me.");
-    
+    myHyperLinkButton.setButtonText("Repo");
     addAndMakeVisible(myHyperLinkButton);
     
     setSize (400, 300);
@@ -43,7 +51,7 @@ void SourceKontrolAudioProcessorEditor::paint (Graphics& g)
     g.fillAll (Colours::black);
 
     g.setColour (Colours::white);
-    g.setFont (15.0f);
+    g.setFont (22.0f);
     g.drawFittedText ("SourceKontrol", getLocalBounds(), Justification::centredTop, 1);
 }
 
@@ -54,16 +62,20 @@ void SourceKontrolAudioProcessorEditor::resized()
 
     int w = 80; int h = 50; int x = 40; int y = 60;
     
-    myButton.setBounds(x, y, w, h);
+    pullButton.setBounds(x, y, w, h);
+    commitButton.setBounds(x, y + 75, w, h);
+    pushButton.setBounds(x, y + 150, w, h);
     myHyperLinkButton.setBounds(x + 100, y, w + 90, h);
 }
 
 
 void SourceKontrolAudioProcessorEditor::buttonClicked(Button* button)
 {
-    if (button == &myButton) {
-        myButton.setButtonText("Committed");
-        std::cout << "i should be printing?";
-        system("ls");
+    if (button == &commitButton) {
+        commitButton.setButtonText("Committed");
+    } else if (button == &pullButton) {
+        pullButton.setButtonText("Pulled");
+    } else if (button == &pushButton) {
+        pushButton.setButtonText("Pushed");
     }
 }

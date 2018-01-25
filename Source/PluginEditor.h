@@ -34,10 +34,12 @@ private:
     // access the processor object that created it.
     SourceKontrolAudioProcessor& processor;
 
-    TextButton myButton;
+    TextButton commitButton;
+    TextButton pullButton;
+    TextButton pushButton;
     
     
-    //URL myURL = URL("facebook.com");
+    URL myURL;
     HyperlinkButton myHyperLinkButton;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceKontrolAudioProcessorEditor)

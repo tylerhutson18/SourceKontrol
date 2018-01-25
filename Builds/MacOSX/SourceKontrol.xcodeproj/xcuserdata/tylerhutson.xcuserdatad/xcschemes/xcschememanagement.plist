@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>SourceKontrol (AU).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>SourceKontrol (All).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>SourceKontrol (Shared Code).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>SourceKontrol (VST).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>041C2EB065F5E82B3BC067F6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4C9BE55F72944CCB1956CBB4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A696948826FA8FB0D8F37126</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EF303C04654453B42AE8E95B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -54,6 +54,7 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     addAndMakeVisible(customCommitMsg);
     customCommitMsg.setEditable(true);
     customCommitMsg.setColour(Label::backgroundColourId, Colours::lightgrey);
+    customCommitMsg.setText("Enter custom commit message.", dontSendNotification);
     customCommitMsg.addListener(this);
     //commitMessage = customCommitMsg.getTextValue();
     
@@ -81,14 +82,15 @@ void SourceKontrolAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 
-    int w = 80; int h = 50; int x = 40; int y = 60;
+    int x = 40; int y = 60; int w = 80; int h = 50;
     
     pullButton.setBounds(x, y, w, h);
     commitButton.setBounds(x, y + 75, w, h);
     pushButton.setBounds(x, y + 150, w, h);
     //myHyperLinkButton.setBounds(x + 100, y, w + 90, h);
-    statusMessage.setBounds(x + 100, y + 70, w + 300, h + 100);
-    customCommitMsg.setBounds(x + 100, y, w + 50, h - 15);
+    //statusMessage.setBounds(x + 100, y + 70, w + 300, h + 100);
+    statusMessage.setBounds(x, y + 200, w + 300, h + 100);
+    customCommitMsg.setBounds(x + 120, y + 75, w + 80, h - 15);
 }
 
 
@@ -99,7 +101,8 @@ void SourceKontrolAudioProcessorEditor::buttonClicked(Button* button)
     // git rev-parse 2> /dev/null; [ $? == 0 ] && echo 1
     
     // change this if you want a different commit message
-    commitMessage = "audio commit";
+    // commitMessage = "SourceKontrol commit";
+    commitMessage = customCommitMsg.getText();
     
     if (button == &commitButton) {
         

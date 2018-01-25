@@ -18,7 +18,7 @@
 //==============================================================================
 /**
 */
-class SourceKontrolAudioProcessorEditor  : public AudioProcessorEditor, public Button::Listener
+class SourceKontrolAudioProcessorEditor  : public AudioProcessorEditor, public Button::Listener, public Label::Listener
 {
 public:
     SourceKontrolAudioProcessorEditor (SourceKontrolAudioProcessor&);
@@ -28,25 +28,34 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     void buttonClicked(Button* button) override;
+    void labelTextChanged(Label* label) override;
 
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     SourceKontrolAudioProcessor& processor;
 
+    // buttons
     TextButton commitButton;
     TextButton pullButton;
     TextButton pushButton;
     
-    URL myURL;
     HyperlinkButton myHyperLinkButton;
+    URL myURL;
     
-    ChildProcess myProcess;     // process to execute commands
+    
+    // processes to execute commands
+    ChildProcess myProcess;
     ChildProcess gitPull;
+    ChildProcess gitAdd;
     ChildProcess gitCommit;
     ChildProcess gitPush;
     
-    Label workingDirectory;    // for getting/displaying current directory
+    // for getting/displaying current status
+    Label statusMessage;
+    Label customCommitMsg;
+    
+    String commitMessage;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceKontrolAudioProcessorEditor)
 };

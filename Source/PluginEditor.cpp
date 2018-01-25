@@ -41,20 +41,25 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     myHyperLinkButton.setButtonText("Repo");
     addAndMakeVisible(myHyperLinkButton);
     
-    // start child process to execute commands
+    
     // gets current directory of work
     myProcess.start( "pwd" );
     String sOutput = myProcess.readAllProcessOutput();
     Logger::outputDebugString( sOutput );
     
     // change label text based on child process
-    workingDirectory.setText("Current directory: " + sOutput, dontSendNotification);
-    addAndMakeVisible(workingDirectory);
+    statusMessage.setText("Current directory: " + sOutput, dontSendNotification);
+    addAndMakeVisible(statusMessage);
     
-    
+    addAndMakeVisible(customCommitMsg);
+    customCommitMsg.setEditable(true);
+    customCommitMsg.setColour(Label::backgroundColourId, Colours::lightgrey);
+    customCommitMsg.addListener(this);
+    //commitMessage = customCommitMsg.getTextValue();
     
     // set gui size
-    setSize (400, 300);
+    //setSize (400, 300);
+    setSize(600, 450);
 }
 
 SourceKontrolAudioProcessorEditor::~SourceKontrolAudioProcessorEditor()
@@ -81,39 +86,72 @@ void SourceKontrolAudioProcessorEditor::resized()
     pullButton.setBounds(x, y, w, h);
     commitButton.setBounds(x, y + 75, w, h);
     pushButton.setBounds(x, y + 150, w, h);
-    myHyperLinkButton.setBounds(x + 100, y, w + 90, h);
-    workingDirectory.setBounds(x + 150, y + 80, w + 120, h);
+    //myHyperLinkButton.setBounds(x + 100, y, w + 90, h);
+    statusMessage.setBounds(x + 100, y + 70, w + 300, h + 100);
+    customCommitMsg.setBounds(x + 100, y, w + 50, h - 15);
 }
 
 
 void SourceKontrolAudioProcessorEditor::buttonClicked(Button* button)
 {
+    
+    // check if github repo
+    // git rev-parse 2> /dev/null; [ $? == 0 ] && echo 1
+    
+    // change this if you want a different commit message
+    commitMessage = "audio commit";
+    
     if (button == &commitButton) {
-        commitButton.setButtonText("Committed");
-        gitCommit.start("git commit -m \"making a commit\"");
-        String commitOutput = myProcess.readAllProcessOutput();
+        
+        // command to execute commit
+        gitAdd.start("git add .");
+        // gitCommit.start("git commit -m \"making a commit\"");
+        gitCommit.start("git commit -m \"" + commitMessage + "\"");
+    
+        String commitOutput = gitCommit.readAllProcessOutput();
         Logger::outputDebugString( commitOutput );
         
         // change label text based on child process
-        workingDirectory.setText("Committing: " + commitOutput, dontSendNotification);
+        statusMessage.setText("Committing: " + commitOutput, dontSendNotification);
+        
+        commitButton.setButtonText("Committed");
+        
+        // reset button text
+        
+        
 
     } else if (button == &pullButton) {
+        
+        // command to execute pull
         gitPull.start("git pull");
-        pullButton.setButtonText("Pulled");
-        String pullOutput = myProcess.readAllProcessOutput();
+        
+        String pullOutput = gitPull.readAllProcessOutput();
         Logger::outputDebugString( pullOutput );
         
         // change label text based on child process
-        workingDirectory.setText("Pulling: " + pullOutput, dontSendNotification);
+        statusMessage.setText("Pulling: " + pullOutput, dontSendNotification);
+        
+        pullButton.setButtonText("Pulled");
 
     } else if (button == &pushButton) {
-        gitPush.start("git push");
-        pushButton.setButtonText("Pushed");
         
-        String pushOutput = myProcess.readAllProcessOutput();
+        // command to execute push
+        gitPush.start("git push");
+        
+        String pushOutput = gitPush.readAllProcessOutput();
         Logger::outputDebugString( pushOutput );
         
         // change label text based on child process
-        workingDirectory.setText("Pushing: " + pushOutput, dontSendNotification);
+        statusMessage.setText("Pushing: " + pushOutput, dontSendNotification);
+        
+        pushButton.setButtonText("Pushed");
     }
 }
+
+void SourceKontrolAudioProcessorEditor::labelTextChanged(Label* label)
+{
+    if (label == &customCommitMsg) {
+        
+    }
+}
+

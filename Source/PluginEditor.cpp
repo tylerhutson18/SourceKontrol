@@ -35,9 +35,14 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     // hyperlink button
     projectRepoURL = URL(gitAudioRepo);
     projectRepoButton.setURL(projectRepoURL);
-    projectRepoButton.setButtonText("Repo");
+    projectRepoButton.setButtonText("Project");
     addAndMakeVisible(projectRepoButton);
     
+    
+    readmeURL = URL(gitReadMe);
+    readmeButton.setURL(readmeURL);
+    readmeButton.setButtonText("Help");
+    addAndMakeVisible(readmeButton);
     
     // start child process: get current directory
     getCurrDirProc.start("pwd");
@@ -90,12 +95,13 @@ void SourceKontrolAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 
-    int x = 40; int y = 60; int w = 80; int h = 50;
+    int x = 50; int y = 60; int w = 80; int h = 50;
     
     pullButton.setBounds(x, y, w, h);
     commitButton.setBounds(x, y + 75, w, h);
     pushButton.setBounds(x, y + 150, w, h);
     projectRepoButton.setBounds(x + 120, y, w + 90, h);
+    readmeButton.setBounds(x + 310, y - 60, w + 90, h);
     statusMessage.setBounds(x, y + 200, w + 300, h + 100);
     customCommitMsgLabel.setBounds(x + 120, y + 75, w + 100, h - 15);
 }

@@ -45,13 +45,18 @@ private:
     TextButton commitButton;
     TextButton pushButton;
     
+    HyperlinkButton readmeButton;
+    URL readmeURL;
+    
     HyperlinkButton projectRepoButton;
     URL projectRepoURL;
+    
     
     
     // hyperlink button links
     String gitSrcRepo = "https://github.com/tylerhutson18/SourceKontrol";
     String gitAudioRepo = "https://github.com/tylerhutson18/SourceKontrol_Audio";
+    String gitReadMe = "https://github.com/tylerhutson18/SourceKontrol/blob/master/README.md";
     
     
     // processes to execute commands

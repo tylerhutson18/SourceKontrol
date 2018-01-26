@@ -26,8 +26,9 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
+    
     void buttonClicked(Button* button) override;
-    void labelTextChanged(Label* label) override;
+    void labelTextChanged(Label* label) override;       // may not need this
     
     void gitPull();
     void gitCommit();
@@ -48,22 +49,25 @@ private:
     URL projectRepoURL;
     
     
+    // hyperlink button links
+    String gitSrcRepo = "https://github.com/tylerhutson18/SourceKontrol";
+    String gitAudioRepo = "https://github.com/tylerhutson18/SourceKontrol_Audio";
+    
+    
     // processes to execute commands
-    ChildProcess getCurrDir;
+    ChildProcess getCurrDirProc;
     ChildProcess gitPullProc;
     ChildProcess gitAddProc;
     ChildProcess gitCommitProc;
     ChildProcess gitPushProc;
     
+    
     // for getting/displaying current status
     Label statusMessage;
     Label customCommitMsgLabel;
     
-    String commitMessage;
+    String defCommitMsg;
     
-    // hyperlink button links
-    String gitSrcRepo = "https://github.com/tylerhutson18/SourceKontrol";
-    String gitAudioRepo = "https://github.com/tylerhutson18/SourceKontrol_Audio";
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SourceKontrolAudioProcessorEditor)
 };

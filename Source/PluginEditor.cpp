@@ -32,7 +32,6 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     pushButton.addListener(this);
     
     
-
     // hyperlink button
     projectRepoURL = URL(gitAudioRepo);
     projectRepoButton.setURL(projectRepoURL);
@@ -40,31 +39,32 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     addAndMakeVisible(projectRepoButton);
     
     
-    // start pwd child process
-    getCurrDir.start("pwd");
+    // start child process: get current directory
+    getCurrDirProc.start("pwd");
     
-    // gets current directory of work
-    String currDirectory = getCurrDir.readAllProcessOutput();
-    Logger::outputDebugString( currDirectory );
+    String currDirectory = getCurrDirProc.readAllProcessOutput();
+    Logger::outputDebugString(currDirectory);
     
-    // change label text based on child process
+    // change label text based on current directory
     statusMessage.setText("Current directory: " + currDirectory, dontSendNotification);
-    
     addAndMakeVisible(statusMessage);
+    
     
     /*
      * should do something to check if directory is github repo
      * git rev-parse 2> /dev/null; [ $? == 0 ] && echo 1
      */
     
-    // custom commit message setup
-    addAndMakeVisible(customCommitMsgLabel);
-    customCommitMsgLabel.setEditable(true);
-    customCommitMsgLabel.setColour(Label::backgroundColourId, Colours::lightgrey);
-    customCommitMsgLabel.setText("Enter custom commit message.", dontSendNotification);
-    customCommitMsgLabel.addListener(this);
     
-    commitMessage = customCommitMsgLabel.getText();
+    // custom commit message setup
+    customCommitMsgLabel.setText("Commiting audio.", dontSendNotification);
+    customCommitMsgLabel.setColour(Label::backgroundColourId, Colours::lightgrey);
+    customCommitMsgLabel.setEditable(true);
+    customCommitMsgLabel.addListener(this);     // may not need this
+    addAndMakeVisible(customCommitMsgLabel);
+    
+    // create default commit message
+    defCommitMsg = customCommitMsgLabel.getText();
     
     // set gui size
     setSize(500, 400);
@@ -126,7 +126,7 @@ void SourceKontrolAudioProcessorEditor::gitPull()
     gitPullProc.start("git pull");
     
     String pullOutput = gitPullProc.readAllProcessOutput();
-    Logger::outputDebugString( pullOutput );
+    Logger::outputDebugString(pullOutput);
     
     // change label text based on child process
     statusMessage.setText("Pulling: " + pullOutput, dontSendNotification);
@@ -141,10 +141,10 @@ void SourceKontrolAudioProcessorEditor::gitCommit()
     gitAddProc.start("git add .");
     
     // start child process: commit files
-    gitCommitProc.start("git commit -m \"" + commitMessage + "\"");
+    gitCommitProc.start("git commit -m \"" + defCommitMsg + "\"");
     
     String commitOutput = gitCommitProc.readAllProcessOutput();
-    Logger::outputDebugString( commitOutput );
+    Logger::outputDebugString(commitOutput);
     
     // change label text based on child process
     statusMessage.setText("Committing: " + commitOutput, dontSendNotification);
@@ -159,7 +159,7 @@ void SourceKontrolAudioProcessorEditor::gitPush()
     gitPushProc.start("git push");
     
     String pushOutput = gitPushProc.readAllProcessOutput();
-    Logger::outputDebugString( pushOutput );
+    Logger::outputDebugString(pushOutput);
     
     // change label text based on child process
     statusMessage.setText("Pushing: " + pushOutput, dontSendNotification);

@@ -57,7 +57,7 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     
     
     // custom commit message setup
-    customCommitMsgLabel.setText("Commiting audio.", dontSendNotification);
+    customCommitMsgLabel.setText("Committing audio.", dontSendNotification);
     customCommitMsgLabel.setColour(Label::backgroundColourId, Colours::lightgrey);
     customCommitMsgLabel.setEditable(true);
     customCommitMsgLabel.addListener(this);     // may not need this
@@ -77,8 +77,9 @@ SourceKontrolAudioProcessorEditor::~SourceKontrolAudioProcessorEditor()
 //==============================================================================
 void SourceKontrolAudioProcessorEditor::paint (Graphics& g)
 {
-    g.fillAll (Colours::white);
-
+    //g.fillAll (Colours::white);
+    g.fillAll(getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    
     g.setColour (Colours::black);
     g.setFont (22.0f);
     g.drawFittedText ("SourceKontrol", getLocalBounds(), Justification::centredTop, 1);

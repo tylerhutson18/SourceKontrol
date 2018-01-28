@@ -1,12 +1,3 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
@@ -54,7 +45,7 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     
     // change status message depending on repo status
     if (!isGitRepoOutput.contains("fatal")) {
-        statusMessage.setText("Current directory: " + currDirectory, dontSendNotification);
+        statusMessage.setText("Valid repo location. Current directory: " + currDirectory, dontSendNotification);
         addAndMakeVisible(statusMessage);
     } else {
         statusMessage.setText("Error: Folder has not been linked to git.", dontSendNotification);
@@ -62,15 +53,13 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     }
     
     
-    // custom commit message setup
+    // custom commit message setup with default
     customCommitMsgLabel.setText("Committing audio.", dontSendNotification);
     customCommitMsgLabel.setColour(Label::backgroundColourId, Colours::dimgrey);
     customCommitMsgLabel.setEditable(true);
     customCommitMsgLabel.addListener(this);     // may not need this
     addAndMakeVisible(customCommitMsgLabel);
     
-    // create default commit message
-    //defCommitMsg = customCommitMsgLabel.getText();
     
     // set gui size
     setSize(500, 400);
@@ -117,7 +106,8 @@ void SourceKontrolAudioProcessorEditor::buttonClicked(Button* button)
         gitPull();
         
     } else if (button == &commitButton) {
-        // create default commit message
+        
+        // update custom commit message
         defCommitMsg = customCommitMsgLabel.getText();
         gitCommit();
         

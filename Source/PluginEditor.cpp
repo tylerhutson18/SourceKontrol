@@ -12,7 +12,6 @@
 #include "PluginEditor.h"
 
 
-
 //==============================================================================
 SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKontrolAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
@@ -44,21 +43,23 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     readmeButton.setButtonText("Help");
     addAndMakeVisible(readmeButton);
     
+    
+    // start child process: validate folder repo
+    isGitRepoProc.start("git ls-remote");
+    String isGitRepoOutput = isGitRepoProc.readAllProcessOutput();
+
     // start child process: get current directory
     getCurrDirProc.start("pwd");
-    
     String currDirectory = getCurrDirProc.readAllProcessOutput();
-    Logger::outputDebugString(currDirectory);
     
-    // change label text based on current directory
-    statusMessage.setText("Current directory: " + currDirectory, dontSendNotification);
-    addAndMakeVisible(statusMessage);
-    
-    
-    /*
-     * should do something to check if directory is github repo
-     * git rev-parse 2> /dev/null; [ $? == 0 ] && echo 1
-     */
+    // change status message depending on repo status
+    if (!isGitRepoOutput.contains("fatal")) {
+        statusMessage.setText("Current directory: " + currDirectory, dontSendNotification);
+        addAndMakeVisible(statusMessage);
+    } else {
+        statusMessage.setText("Error: Folder has not been linked to git.", dontSendNotification);
+        addAndMakeVisible(statusMessage);
+    }
     
     
     // custom commit message setup
@@ -85,7 +86,8 @@ void SourceKontrolAudioProcessorEditor::paint (Graphics& g)
     //g.fillAll (Colours::white);
     g.fillAll(getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     
-    g.setColour (Colours::black);
+    //g.setColour (Colours::black);
+    g.setColour (Colours::whitesmoke);
     g.setFont (22.0f);
     g.drawFittedText ("SourceKontrol", getLocalBounds(), Justification::centredTop, 1);
 }

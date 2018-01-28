@@ -52,7 +52,6 @@ private:
     URL projectRepoURL;
     
     
-    
     // hyperlink button links
     String gitSrcRepo = "https://github.com/tylerhutson18/SourceKontrol";
     String gitAudioRepo = "https://github.com/tylerhutson18/SourceKontrol_Audio";
@@ -66,6 +65,7 @@ private:
     ChildProcess gitCommitProc;
     ChildProcess gitPushProc;
     
+    ChildProcess isGitRepoProc;
     
     // for getting/displaying current status
     Label statusMessage;

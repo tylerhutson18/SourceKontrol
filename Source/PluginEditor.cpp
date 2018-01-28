@@ -63,13 +63,13 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
     
     // custom commit message setup
     customCommitMsgLabel.setText("Committing audio.", dontSendNotification);
-    customCommitMsgLabel.setColour(Label::backgroundColourId, Colours::lightgrey);
+    customCommitMsgLabel.setColour(Label::backgroundColourId, Colours::dimgrey);
     customCommitMsgLabel.setEditable(true);
     customCommitMsgLabel.addListener(this);     // may not need this
     addAndMakeVisible(customCommitMsgLabel);
     
     // create default commit message
-    defCommitMsg = customCommitMsgLabel.getText();
+    //defCommitMsg = customCommitMsgLabel.getText();
     
     // set gui size
     setSize(500, 400);
@@ -115,7 +115,8 @@ void SourceKontrolAudioProcessorEditor::buttonClicked(Button* button)
         gitPull();
         
     } else if (button == &commitButton) {
-        
+        // create default commit message
+        defCommitMsg = customCommitMsgLabel.getText();
         gitCommit();
         
     } else if (button == &pushButton) {

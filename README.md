@@ -4,6 +4,8 @@ This is a project to try to incorporate source control in a Digital Audio Workst
 
 It is also required that Command Line Tools be installed to allow the plug-in to communicate with GitHub.
 
+The plug-in will check upon loading whether you're in an initialized repository. When switching between projects, make sure you close out of all others and reload your current project.
+
 ## Get Started
 
 To get started with this plug-in, you will need to set up a GitHub repository for your project. 

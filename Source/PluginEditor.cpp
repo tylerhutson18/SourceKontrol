@@ -48,7 +48,7 @@ SourceKontrolAudioProcessorEditor::SourceKontrolAudioProcessorEditor (SourceKont
         statusMessage.setText("Valid repo location. Current directory: " + currDirectory, dontSendNotification);
         addAndMakeVisible(statusMessage);
     } else {
-        statusMessage.setText("Error: Folder has not been linked to git.", dontSendNotification);
+        statusMessage.setText("Error: Folder has not been linked to git: " + currDirectory, dontSendNotification);
         addAndMakeVisible(statusMessage);
     }
     
